@@ -17,7 +17,7 @@
         }
 
         body {
-            font-family: 'Orbitron', sans-serif;
+            font-family: sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(45deg, #09c6f9, #045de9);
@@ -88,14 +88,14 @@
 <body>
 
     <header>
-        <h1>WOFF アプリ サンプル</h1>
+        <h1>WOFF アプリ</h1>
     </header>
 
     <div class="container">
         <!-- ユーザープロフィール情報のセクション -->
         <div class="section" id="userProfileSection">
             <h2>ユーザーのプロフィール情報</h2>
-            <p>woff.getProfile() メソッドでログイン中のユーザーのプロフィール情報を取得して表示しています。</p>
+            <p> メソッドでログイン中のユーザーのプロフィール情報を取得して表示しています。</p>
             <div id="userProfileInfo"></div>
         </div>
 
@@ -126,45 +126,7 @@
         </div>
 
     <script>
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                document.getElementById("locationInfo").innerHTML = "このブラウザはGeolocationをサポートしていません。";
-            }
-        }
-
-        function showPosition(position) {
-            document.getElementById("locationInfo").innerHTML = "Latitude: " + position.coords.latitude +
-                ", Longitude: " + position.coords.longitude;
-            document.getElementById("sendLocationBtn").style.display = "block";
-        }
-
-        function sendLocationToWOFF() {
-            const locationInfoElem = document.getElementById("locationInfo");
-            const messageContent = locationInfoElem.textContent;
-
-            woff.sendMessage({
-                content: messageContent
-            })
-                .then(() => {
-                    alert('Sent successfully');
-                })
-                .catch((err) => {
-                    alert('error: ' + err);
-                });
-        }
-
-        function scanQRCode() {
-            woff.scanQR()
-                .then((result) => {
-                    document.getElementById("qrResult").innerHTML = "Scanned Info: " + result.value;
-                    document.getElementById("sendQRDataBtn").style.display = "block";
-                })
-                .catch((err) => {
-                    alert('error: ' + err);
-                });
-        }
+        
 
         function sendQRToWOFF() {
             const qrResultElem = document.getElementById("qrResult");
@@ -211,6 +173,45 @@
             document.getElementById("scanQRBtn").addEventListener("click", scanQRCode);
             document.getElementById("sendQRDataBtn").addEventListener("click", sendQRToWOFF);
         };
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                document.getElementById("locationInfo").innerHTML = "このブラウザはGeolocationをサポートしていません。";
+            }
+        }
+
+        function showPosition(position) {
+            document.getElementById("locationInfo").innerHTML = "Latitude: " + position.coords.latitude +
+                ", Longitude: " + position.coords.longitude;
+            document.getElementById("sendLocationBtn").style.display = "block";
+        }
+
+        function sendLocationToWOFF() {
+            const locationInfoElem = document.getElementById("locationInfo");
+            const messageContent = locationInfoElem.textContent;
+
+            woff.sendMessage({
+                content: messageContent
+            })
+                .then(() => {
+                    alert('Sent successfully');
+                })
+                .catch((err) => {
+                    alert('error: ' + err);
+                });
+        }
+
+        function scanQRCode() {
+            woff.scanQR()
+                .then((result) => {
+                    document.getElementById("qrResult").innerHTML = "Scanned Info: " + result.value;
+                    document.getElementById("sendQRDataBtn").style.display = "block";
+                })
+                .catch((err) => {
+                    alert('error: ' + err);
+                });
+        }
     </script>
     <script charset="utf-8" src="https://static.worksmobile.net/static/wm/woff/edge/3.6/sdk.js"></script>
 </body>
