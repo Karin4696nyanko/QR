@@ -99,6 +99,7 @@
             <div id="userProfileInfo"></div>
         </div>
 
+
         <!-- QRコードリーダーのセクション -->
         <div class="section">
             <h2>QRコードをスキャンする</h2>
@@ -108,10 +109,13 @@
             <button class="btn" id="sendQRDataBtn">取得したQRコード情報を送信</button>
         </div>
 
+       
     </div>
 
     <script>
-    
+       
+      
+
         function scanQRCode() {
             woff.scanQR()
                 .then((result) => {
@@ -131,13 +135,13 @@
                 content: messageContent
             })
                 .then(() => {
-                    
                     alert('QRコードの情報を送信しました');
-                    woff.closeWindow();
                 })
                 .catch((err) => {
                     alert('error: ' + err);
                 });
+            woff.closeWindow();
+            
         }
 
         document.getElementById("exitAppBtn").addEventListener("click", function () {
@@ -165,8 +169,7 @@
                     console.log(err.code, err.message);
                 });
 
-            document.getElementById("getLocationBtn").addEventListener("click", getLocation);
-            document.getElementById("sendLocationBtn").addEventListener("click", sendLocationToWOFF);
+ 
             document.getElementById("scanQRBtn").addEventListener("click", scanQRCode);
             document.getElementById("sendQRDataBtn").addEventListener("click", sendQRToWOFF);
         };
