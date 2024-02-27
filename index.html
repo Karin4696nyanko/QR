@@ -119,7 +119,17 @@
         </div>
     </div>
     <script>
-        
+             
+        function scanQRCode() {
+            woff.scanQR()
+                .then((result) => {
+                    document.getElementById("qrResult").innerHTML = "Scanned Info: " + result.value;
+                    document.getElementById("sendQRDataBtn").style.display = "block";
+                })
+                .catch((err) => {
+                    alert('error: ' + err);
+                });
+        }
 
         function sendQRToWOFF() {
             const qrResultElem = document.getElementById("qrResult");
@@ -166,45 +176,7 @@
             document.getElementById("scanQRBtn").addEventListener("click", scanQRCode);
             document.getElementById("sendQRDataBtn").addEventListener("click", sendQRToWOFF);
         };
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                document.getElementById("locationInfo").innerHTML = "このブラウザはGeolocationをサポートしていません。";
-            }
-        }
-
-        function showPosition(position) {
-            document.getElementById("locationInfo").innerHTML = "Latitude: " + position.coords.latitude +
-                ", Longitude: " + position.coords.longitude;
-            document.getElementById("sendLocationBtn").style.display = "block";
-        }
-
-        function sendLocationToWOFF() {
-            const locationInfoElem = document.getElementById("locationInfo");
-            const messageContent = locationInfoElem.textContent;
-
-            woff.sendMessage({
-                content: messageContent
-            })
-                .then(() => {
-                    alert('Sent successfully');
-                })
-                .catch((err) => {
-                    alert('error: ' + err);
-                });
-        }
-
-        function scanQRCode() {
-            woff.scanQR()
-                .then((result) => {
-                    document.getElementById("qrResult").innerHTML = "Scanned Info: " + result.value;
-                    document.getElementById("sendQRDataBtn").style.display = "block";
-                })
-                .catch((err) => {
-                    alert('error: ' + err);
-                });
-        }
+ 
     </script>
     <script charset="utf-8" src="https://static.worksmobile.net/static/wm/woff/edge/3.6/sdk.js"></script>
 </body>
