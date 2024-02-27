@@ -95,17 +95,8 @@
         <!-- ユーザープロフィール情報のセクション -->
         <div class="section" id="userProfileSection">
             <h2>ユーザーのプロフィール情報</h2>
-            <p>woff.getProfile() メソッドでログイン中のユーザーのプロフィール情報を取得して表示しています。</p>
+            <p>メソッドでログイン中のユーザーのプロフィール情報を取得して表示しています。</p>
             <div id="userProfileInfo"></div>
-        </div>
-
-        <!-- 位置情報のセクション -->
-        <div class="section">
-            <h2>位置情報の取得</h2>
-            <p>Geolocation API で位置情報を取得します。</p>
-            <button class="btn" id="getLocationBtn">位置情報を取得</button>
-            <div id="locationInfo"></div>
-            <button class="btn" id="sendLocationBtn">取得した位置情報を送信</button>
         </div>
 
         <!-- QRコードリーダーのセクション -->
@@ -117,44 +108,10 @@
             <button class="btn" id="sendQRDataBtn">取得したQRコード情報を送信</button>
         </div>
 
-        <!-- アプリ終了のセクション -->
-        <div class="section">
-            <h2>アプリを終了する</h2>
-            <p>woff.closeWindow() メソッドで WOFF アプリを終了します。</p>
-            <button class="btn" id="exitAppBtn">アプリを終了</button>
-        </div>
     </div>
 
     <script>
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                document.getElementById("locationInfo").innerHTML = "このブラウザはGeolocationをサポートしていません。";
-            }
-        }
-
-        function showPosition(position) {
-            document.getElementById("locationInfo").innerHTML = "Latitude: " + position.coords.latitude +
-                ", Longitude: " + position.coords.longitude;
-            document.getElementById("sendLocationBtn").style.display = "block";
-        }
-
-        function sendLocationToWOFF() {
-            const locationInfoElem = document.getElementById("locationInfo");
-            const messageContent = locationInfoElem.textContent;
-
-            woff.sendMessage({
-                content: messageContent
-            })
-                .then(() => {
-                    alert('Sent successfully');
-                })
-                .catch((err) => {
-                    alert('error: ' + err);
-                });
-        }
-
+    
         function scanQRCode() {
             woff.scanQR()
                 .then((result) => {
@@ -174,7 +131,9 @@
                 content: messageContent
             })
                 .then(() => {
+                    
                     alert('QRコードの情報を送信しました');
+                    woff.closeWindow();
                 })
                 .catch((err) => {
                     alert('error: ' + err);
