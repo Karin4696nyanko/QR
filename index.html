@@ -95,7 +95,7 @@
         <!-- ユーザープロフィール情報のセクション -->
         <div class="section" id="userProfileSection">
             <h2>ユーザーのプロフィール情報</h2>
-            <p>メソッドでログイン中のユーザーのプロフィール情報を取得して表示しています。</p>
+            <p>ログイン中のユーザーのプロフィール情報を取得して表示しています。</p>
             <div id="userProfileInfo"></div>
         </div>
 
@@ -194,8 +194,6 @@
                     woff.getProfile().then(profile => {
                         const profileInfoElem = document.getElementById("userProfileInfo");
                         profileInfoElem.innerHTML = `
-                    ドメイン ID: ${profile.domainId} <br>
-                    ユーザー ID: ${profile.userId} <br>
                     ユーザー名: ${profile.displayName}
                 `;
                     }).catch(error => {
